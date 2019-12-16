@@ -1,0 +1,26 @@
+{
+  "name": "paypal-node-example",
+  "version": "1.0.0",
+  "description": "An example of server integration with PayPal.",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node -r dotenv/config app/index.js",
+    "dev": "nodemon -r dotenv/config app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "PayPal",
+    "ecommerce"
+  ],
+  "author": "MarcoMacedoP",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
