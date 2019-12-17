@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Transaction = require('../controllers/Paypal/Transaction');
+const debug = require('debug')('app:api:paypal')
 
 const PURCHASE_UNITS_MOCK = [{
     amount: {
@@ -12,21 +13,22 @@ const PURCHASE_UNITS_MOCK = [{
 
 router.post('/make-transaction/', async (req, res) => {
     try {
-        const transaction = await new Transaction.make({
+        const { result } = await new Transaction().make({
             purchaseUnits: PURCHASE_UNITS_MOCK
         })
-        res.status(201).json({
-            transaction
-        })
+        debug(result)
+        res.status(201).json(result)
     } catch (error) {
+        debug(error)
         res.status(500).json({ error })
     }
 })
 
 router.post('/capture-transaction/', async (req, res) => {
-    const { orderId } = req.body
+    debug(req.body)
+    const { orderID } = req.body
     try {
-        const transaction = await new Transaction().capture({ orderId })
+        const transaction = await new Transaction().capture({ orderID })
         res.status(201).json({
             transaction
         })
@@ -36,9 +38,9 @@ router.post('/capture-transaction/', async (req, res) => {
 })
 
 router.post('/completed-transaction/', async (req, res) => {
-    const { orderId } = req.body
+    const { orderID } = req.body
     try {
-        const transaction = await new Transaction().details({ orderId });
+        const transaction = await new Transaction().details({ orderID });
         res.status(200).json({
             transaction,
             message: 'transaction completed'

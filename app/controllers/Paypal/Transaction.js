@@ -20,16 +20,16 @@ class Transaction {
         return paypalClient.client().execute(request)
     }
 
-    capture({ orderId }) {
-        const request = new paypal.orders.OrdersCaptureRequest(orderId)
+    capture({ orderID }) {
+        const request = new paypal.orders.OrdersCaptureRequest(orderID)
         request.requestBody({})
         return paypalClient.client().execute(request)
     }
     /**
      *  Get the details of a transaction based on his ID.
      */
-    details({ orderId }) {
-        const request = new paypal.orders.OrdersGetRequest(orderId)
+    details({ orderID }) {
+        const request = new paypal.orders.OrdersGetRequest(orderID)
         return paypalClient.client().execute(request)
     }
 

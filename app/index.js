@@ -1,15 +1,13 @@
 const { server } = require('./config')
 const express = require('express')
-const exphbs = require('express-handlebars')
 const app = express()
-const path = require('path')
-//views
-app.engine('handlebars', exphbs())
-app.set('view engine', 'handlebars')
-app.set('views', path.join(__dirname, 'views'))
-app.get('/', (req, res) => {
-    res.render('home')
-})
+const paypalApi = require('./api/paypal')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+//middlewares
+app.use(cors())
+app.use(bodyParser.json())
+app.use('/api/paypal', paypalApi)
 
 app.listen(server.port, () => {
     console.log('Server on port', + server.port)
